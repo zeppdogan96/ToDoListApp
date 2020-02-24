@@ -32,7 +32,7 @@ namespace ToDoApplication.Business.Task
                         LEVEL_ID = taskTemplate.LevelId,
                         IS_ACTIVE = taskTemplate.IsActive,
                         IS_DELETED = taskTemplate.IsDeleted,
-                        CREATE_DATE = taskTemplate.CreateDate,
+                        CREATE_DATE = DateTime.Now,
                         DATE = taskTemplate.Date,
                     };
                     Repository.Context.TASKS.Add(task);
@@ -45,7 +45,6 @@ namespace ToDoApplication.Business.Task
             {
                 serviceResult.HasError = true;
                 serviceResult.Exception = ex;
-                //Logger.FileLog.Error(ex.Message, ex);
             }
 
             return serviceResult;
@@ -78,7 +77,6 @@ namespace ToDoApplication.Business.Task
             {
                 serviceResult.HasError = true;
                 serviceResult.Exception = ex;
-                //Logger.FileLog.Error(ex.Message, ex);
             }
             return serviceResult;
         }
@@ -104,7 +102,6 @@ namespace ToDoApplication.Business.Task
             {
                 serviceResult.HasError = true;
                 serviceResult.Exception = ex;
-                //Logger.FileLog.Error(ex.Message, ex);
             }
             return serviceResult;
         }
@@ -138,7 +135,6 @@ namespace ToDoApplication.Business.Task
             {
                 serviceResult.HasError = true;
                 serviceResult.Exception = ex;
-                //Logger.FileLog.Error(ex.Message, ex);
             }
             return serviceResult;
         }
@@ -167,7 +163,6 @@ namespace ToDoApplication.Business.Task
             {
                 serviceResult.HasError = true;
                 serviceResult.Exception = ex;
-                //Logger.FileLog.Error(ex.Message, ex);
             }
             return serviceResult;
         }
