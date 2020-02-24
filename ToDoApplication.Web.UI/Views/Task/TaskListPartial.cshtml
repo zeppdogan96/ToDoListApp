@@ -1,0 +1,131 @@
+﻿@model ToDoApplication.Web.UI.Models.Task.TaskViewModel
+@using ToDoApplication.Web.UI.Helpers.HtmlHelpers;
+
+<div class="headerSub container-fluid">
+    Dizgi Hattı Log Raporu
+</div>
+<div class="container-fluid">
+    <div class="col-md-3">
+        <div class="col-md-12">
+            <div class="panel panel-white">
+                <div class="panel-body">
+                    <div class="input-group">
+                        <span class="input-group" style="font-weight: bold;">Tarih aralığı</span>
+                        <br />
+                        <div class="col-md-12">
+                            <div class='input-group date' id='chooseFaultDateStart'>
+                                @Html.TextBoxFor(x => x.FilterTemplate.StartDate, new { @class = "form-control" })
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="col-md-12">
+                            <div class='input-group date' id='chooseFaultDateStart'>
+                                @Html.TextBoxFor(x => x.FilterTemplate.EndDate, new { @class = "form-control" })
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button id="List" name="submit" value="GetList" type="submit" class="btn btn-info pull-right" onclick="ClearPageIndex()">Filtrele</button>
+                    <a href="@Url.Action("Index","Task")" class="btn btn-danger" onclick="ClearPageIndex()">
+                    </a>
+                    <a style="margin-right:10px;" class="btn btn-danger pull-right" onclick="Refresh();">Filtreyi Sıfırla</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    &nbsp;<i class="fa fa-list" aria-hidden="true"></i>&nbsp; <strong>Yapılacaklar Listesi</strong>
+                </h4>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover" style="margin-bottom:0">
+                        @{
+                            if (Model.TemplateList.Count > decimal.Zero && Model.TemplateList != null)
+                            {
+                                <thead>
+                                    <tr class="small text-right">
+                                        <th>Başlangıç</th>
+                                        <th>Açıklama</th>
+                                        <th>Tarih</th>
+                                        <th>Statu</th>
+                                        <th>Level</th>
+                                        <th>Oluşturulma Tarihi</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        for (int i = 0; i < Model.TemplateList.Count; i++)
+                                        {
+                                            <tr>
+                                                <td>@Model.TemplateList[i].TaskName</td>
+                                                <td>@Model.TemplateList[i].Description</td>
+                                                <td>@Model.TemplateList[i].Date</td>
+                                                <td>@Model.TemplateList[i].StatuId</td>
+                                                <td>@Model.TemplateList[i].LevelId</td>
+                                                <td>@Model.TemplateList[i].CreateDate</td>
+                                                <td>
+                                                    <a href="@Url.Action("Delete","Task",new { id = Model.TemplateList[i].TaskId })" class="btn btn-danger" onclick="return confirm('İşlemi silmek istediğinizden emin misinizi?')">
+                                                        <i class="fa fa-eraser">Sil</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            }
+                            else
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td colspan="12" class="text-center">
+                                            <br /><br /><br /><br />
+                                            <h3>
+                                                <i class="fa fa-flag-o" aria-hidden="true"></i><br /><br />
+                                                <b>Veri Bulunamadı</b>
+                                            </h3>
+                                            <br /><br /><br /><br />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            @Html.Paging(Model.TotalItemCount, Model.FilterTemplate.PageIndex, Model.FilterTemplate.PageSize)
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#chooseFaultDateStart,#chooseFaultDateEnd').datetimepicker({
+            viewMode: 'days',
+            locale: 'tr',
+            calendarWeeks: true,
+            format: 'DD/MM/YYYY'
+        });
+    });
+    function Refresh() {
+        var page = window.location.href;
+        window.location.assign(page);
+    }
+    function ClearPageIndex() {
+        $('#PageIndex').val(1);
+    }
+</script>

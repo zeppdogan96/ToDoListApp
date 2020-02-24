@@ -1,0 +1,15 @@
+﻿@using ToDoApplication.WebUI;
+@using System.Web.Mvc;
+
+@{
+    ViewBag.Title = "Yapılacaklar Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "UpdateTargetId", LoadingElementId = "Loading" }))
+{
+    <div id="UpdateTargetId">
+        @Html.Partial("TaskPartial", Model)
+    </div>
+}
+

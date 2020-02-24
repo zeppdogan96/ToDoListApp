@@ -1,0 +1,12 @@
+﻿@model ToDoApplication.Web.UI.Models.Task.TaskViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "UpdateTargetId", LoadingElementId = "Loading" }))
+{
+    <div id="UpdateTargetId">
+        @Html.Partial("TaskListPartial", Model)
+    </div>
+}
+

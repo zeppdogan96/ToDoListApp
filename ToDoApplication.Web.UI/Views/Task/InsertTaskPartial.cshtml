@@ -1,0 +1,68 @@
+﻿@using ToDoApplication.Web.UI.Models.Task;
+
+@model TaskViewModel
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-info">
+            <div class="panel-heading" data-toggle="collapse" style="cursor:pointer">
+                <div class="panel-title">
+                    <div class="col-md-6 pull-left">
+                        <i class="fa fa-filter" aria-hidden="true"></i> <b>Ekleme</b>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Insert", "Task", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <fieldset>
+                    <div id="createPanel" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+                            @if (Model != null)
+                            {
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label><b>Başlık</b></label>
+                                        @Html.TextBoxFor(a => a.Template.TaskName, new { id = "Name", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label><b>Açıklama</b></label>
+                                        @Html.TextBoxFor(a => a.Template.Description, new { id = "Description", @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label><b>DesignType</b></label>
+                                        @Html.DropDownListFor(a => a.Template.LevelId, Model.LevelList, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='chooseFaultDate'>
+                                            @Html.TextBoxFor(x => x.Template.Date, new { @class = "form-control" })
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-group btn-register">
+                            <button class="btn-send" type="submit">Kaydet</button>
+                            <a href="@Url.Action("Index")" class="btn btn-danger">Vazgeç</a>
+                        </div>
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#chooseFaultDate').datetimepicker({
+            viewMode: 'days',
+            locale: 'tr',
+            calendarWeeks: true,
+            format: 'DD/MM/YYYY'
+        });
+    });
+</script>
